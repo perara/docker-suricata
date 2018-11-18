@@ -15,4 +15,4 @@ VOLUME /var/log/suricata
 
 RUN /usr/sbin/suricata -V
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"] 
