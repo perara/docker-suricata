@@ -18,17 +18,17 @@ if __name__ == "__main__":
             filename = os.path.basename(file)
 
             # Clear Eve LOG
-            with open(EVE_LOG, "w+") as f:
-                f.write("")
+            open(EVE_LOG, "w").close()
 
             # Run TCP Replay
-            subprocess.call(['/usr/bin/tcpreplay', '--topspeed', '--intf1=eth0', file])
+            subprocess.call(['/usr/bin/tcpreplay', '--multiplier=7.3', '--intf1=eth0', file])
 
-            with open(EVE_LOG, "rb") as f:
-                alarms = f.read()
+            # Wait a bit
+            time.sleep(2)
 
-            with open("/pcap/completed/" + filename + ".json", "wb") as f:
-                f.write(alarms)
+            json.load(open(EVE_LOG, "r"))
+            print("DONE!")
+
 
             shutil.move(file, "/pcap/completed")
 
