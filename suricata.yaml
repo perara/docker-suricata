@@ -13,14 +13,8 @@ vars:
   # more specifc is better for alert accuracy and performance
   address-groups:
     HOME_NET: "[192.168.0.0/16,10.0.0.0/8,172.16.0.0/12]"
-    #HOME_NET: "[192.168.0.0/16]"
-    #HOME_NET: "[10.0.0.0/8]"
-    #HOME_NET: "[172.18.0.0/12]"
-    #HOME_NET: "any"
 
-    EXTERNAL_NET: "!$HOME_NET" 
-    #EXTERNAL_NET: "any"
-
+    EXTERNAL_NET: "!$HOME_NET"
     HTTP_SERVERS: "$HOME_NET"
     SMTP_SERVERS: "$HOME_NET"
     SQL_SERVERS: "$HOME_NET"
@@ -93,7 +87,7 @@ outputs:
       # the following are valid when type: syslog above
       #identity: "suricata"
       #facility: local5
-      level: Critical  ## possible levels: Emergency, Alert, Critical,
+      level: Info  ## possible levels: Emergency, Alert, Critical,
                    ## Error, Warning, Notice, Info, Debug
       #redis:
       #  server: 127.0.0.1
@@ -365,7 +359,7 @@ outputs:
 
   # a line based information for dropped packets in IPS mode
   - drop:
-      enabled: yes
+      enabled: no
       filename: drop.log
       append: yes
       #filetype: regular # 'regular', 'unix_stream' or 'unix_dgram'
@@ -762,8 +756,8 @@ app-layer:
 
            # Can be specified in kb, mb, gb.  Just a number indicates
            # it's in bytes.
-           request-body-limit: 100kb
-           response-body-limit: 100kb
+           request-body-limit: 0
+           response-body-limit: 0
 
            # inspection limits
            request-body-minimal-inspect-size: 32kb
@@ -945,8 +939,8 @@ host-mode: auto
 # activated in live capture mode. You can use the filename variable to set
 # the file name of the socket.
 unix-command:
-  enabled: auto
-  #filename: custom.socket
+  enabled: yes
+  filename: /socket/suricata.socket
 
 # Magic file. The extension .mgc is added to the value here.
 #magic-file: /usr/share/file/magic
@@ -1183,7 +1177,7 @@ flow-timeouts:
 #
 stream:
   memcap: 64mb
-  checksum-validation: yes      # reject wrong csums
+  checksum-validation: no      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
   reassembly:
     memcap: 256mb

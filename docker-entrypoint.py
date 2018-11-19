@@ -21,15 +21,16 @@ if __name__ == "__main__":
             open(EVE_LOG, "w").close()
 
             # Run TCP Replay
-            subprocess.call(['/usr/bin/tcpreplay', '--multiplier=7.3', '--intf1=eth0', file])
+            subprocess.call(['/usr/bin/tcpreplay', '--topspeed', '--intf1=eth0', file])
 
             # Wait a bit
             time.sleep(2)
 
-            json.load(open(EVE_LOG, "r"))
+            #json.load(open(EVE_LOG, "r"))
             print("DONE!")
-
 
             shutil.move(file, "/pcap/completed")
 
         time.sleep(1)
+
+

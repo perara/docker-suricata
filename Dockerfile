@@ -5,7 +5,11 @@ RUN apt-get install -y software-properties-common tcpreplay
 RUN add-apt-repository -y ppa:oisf/suricata-stable
 RUN apt-get install -y suricata
 RUN apt-get install -y python3-pip python3-yaml
+#RUN apt-get install -y ethtool
 RUN pip3 install --pre --upgrade suricata-update
+
+# Disable offloading
+#RUN ethtool -K eth0 gro off
 
 # Install cronjob for updating suricata
 COPY suricata-update.sh /etc/suricata/suricata-update.sh
@@ -23,6 +27,5 @@ RUN chmod +x /tmp/docker-entrypoint.sh
 
 # Copy suricata configuration
 COPY suricata.yaml /etc/suricata/suricata.yaml
-
 
 ENTRYPOINT ["/tmp/docker-entrypoint.sh"]
