@@ -10,9 +10,12 @@ if __name__ == "__main__":
                 os.chmod(os.path.join(root, f), 0o777)
 
     while True:
-        recursive_permission("/socket")
-        recursive_permission("/reports")
-        recursive_permission("/pcaps")
-        time.sleep(2)
+        try:
+            recursive_permission("/socket")
+            recursive_permission("/reports")
+            recursive_permission("/pcaps")
+            time.sleep(.5)
+        except:
+            pass
 
 
