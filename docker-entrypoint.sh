@@ -22,8 +22,6 @@ mkdir -p /socket
 python /tmp/docker-entrypoint.py &
 
 # Start suricata
-
-
 while true; do
     /usr/bin/suricata -c /etc/suricata/suricata.yaml --unix-socket=/socket/suricata.socket
     sleep 2000
