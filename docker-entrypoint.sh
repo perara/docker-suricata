@@ -19,7 +19,7 @@ mkdir -p /socket
 
 
 
-python /tmp/docker-entrypoint.py &
+#python /tmp/docker-entrypoint.py &
 
 # Start suricata
 
